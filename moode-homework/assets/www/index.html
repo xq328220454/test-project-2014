@@ -7,12 +7,14 @@
 <link rel="stylesheet" href="css/jquery.mobile-1.2.0.css" />
 <link rel="stylesheet" href="css/jquery.mobile.theme-1.2.0.css" />
 <link rel="stylesheet" href="css/index.css" />
+<script src="data/users.json"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.mobile-1.2.0.js"></script>
 <script src="js/function/function.js"></script>
 <script src="js/function/index.js"></script>
 </head>
 <body>
+	<!-- 首页面DIV -->
 	<div id="div_index">
 		<div data-role="header" data-theme="a">
 			<h1>订餐</h1>
@@ -22,6 +24,7 @@
 				data-ajax="false" data-role="button">看订单</a>
 		</div>
 	</div>
+	<!-- 订餐表单DIV -->
 	<div id="div_food">
 		<div data-role="header" data-theme="a">
 			<a data-ajax="false" id="a_food_back">Back</a>
@@ -35,9 +38,17 @@
 				data-role="button" id="a_select_restaurant">选餐厅</a> <label
 				for="basic">选套餐:</label> <input type="text" name="name" id="basic"
 				value="" /> <a data-ajax="false" data-role="button"
-				id="a_select_food">选人</a> <a data-ajax="false" data-role="button"
+				id="a_select_food">选套餐</a> <a data-ajax="false" data-role="button"
 				id="a_food_confirm">确认</a>
 		</div>
+	</div>
+	<!-- 订餐选人界面 -->
+	<div id="div_food_people">
+		<div data-role="header" data-theme="a">
+			<a data-ajax="false" id="div_food_people_back">Back</a>
+			<h1>选人</h1>
+		</div>
+		<ul data-role="listview"></ul>
 	</div>
 </body>
 </html>
