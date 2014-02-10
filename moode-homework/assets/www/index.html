@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/jquery.mobile.theme-1.2.0.css" />
 <link rel="stylesheet" href="css/index.css" />
 <script src="data/users.json"></script>
+<script src="data/restaurants.json"></script>
+<script src="data/foods.json"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.mobile-1.2.0.js"></script>
 <script src="js/function/function.js"></script>
@@ -32,14 +34,14 @@
 		</div>
 		<div id="div_food_form">
 			<label for="basic">人:</label> <input type="text" name="name"
-				id="basic" value="" /> <a data-ajax="false" data-role="button"
-				id="a_select_people">选人</a> <label for="basic">餐厅:</label> <input
-				type="text" name="name" id="basic" value="" /> <a data-ajax="false"
-				data-role="button" id="a_select_restaurant">选餐厅</a> <label
-				for="basic">选套餐:</label> <input type="text" name="name" id="basic"
-				value="" /> <a data-ajax="false" data-role="button"
-				id="a_select_food">选套餐</a> <a data-ajax="false" data-role="button"
-				id="a_food_confirm">确认</a>
+				id="input_people" value="" readonly="readonly" /> <a data-ajax="false"
+				data-role="button" id="a_select_people">选人</a> <label for="basic">餐厅:</label>
+			<input type="text" name="name" id="input_restaurants" value=""
+				readonly="readonly" /> <a data-ajax="false" data-role="button"
+				id="a_select_restaurant">选餐厅</a> <label for="basic">选套餐:</label> <input
+				type="text" name="name" id="basic" value="" readonly="readonly" />
+			<a data-ajax="false" data-role="button" id="a_select_food">选套餐</a> <a
+				data-ajax="false" data-role="button" id="a_food_confirm">确认</a>
 		</div>
 	</div>
 	<!-- 订餐选人界面 -->
@@ -47,6 +49,14 @@
 		<div data-role="header" data-theme="a">
 			<a data-ajax="false" id="div_food_people_back">Back</a>
 			<h1>选人</h1>
+		</div>
+		<ul data-role="listview"></ul>
+	</div>
+	<!-- 订餐餐厅界面 -->
+	<div id="div_food_restaurants">
+		<div data-role="header" data-theme="a">
+			<a data-ajax="false" id="div_food_restaurants_back">Back</a>
+			<h1>选餐厅</h1>
 		</div>
 		<ul data-role="listview"></ul>
 	</div>
