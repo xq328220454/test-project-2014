@@ -83,6 +83,12 @@ function function_a_food_confirm() {
 	orderArray.push(ord);
 	// 删除users中，已经订餐用户的li
 	$("#" + user_name).remove();
+	// 删除该用户在未定餐用户数组中
+	for (temp_user in userArray) {
+		if (temp_user.name == user_name) {
+			delete temp_user;
+		}
+	}
 	// 清除文本框值
 	$("#input_people").val("");
 	$("#food_price").val("");
