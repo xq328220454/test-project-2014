@@ -6,3 +6,11 @@
 #div_food_form label {
 	padding-top: 1%;
 }
+
+#span_money {
+	margin-left: 90%;
+}
+
+.span_money_font {
+	color: red;
+}

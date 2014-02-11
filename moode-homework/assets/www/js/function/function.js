@@ -3,14 +3,22 @@ var init_Nfood_flag = 0;// 0：加载除套餐外的初始化值
 var userArray = [];// 存放用户的数组
 var orderArray = [];// 存放订单的数组
 
+var page_init = 0;// 0:页面首次加载
+
 /**
  * 页面跳转
  */
 function function_click_button() {
 	// id:a_food方法 进入订餐表单
 	$("#a_food").click(function() {
+		// 清除文本框值
+		$("#input_people").val("");
+		$("#food_price").val("");
+		$("#input_food").val("");
+		$("#input_restaurants").val("");
 		init_Nfood_flag = 0;
 		function_json_init();// 初始化值
+		page_init = 1;
 		function_Nbutton_click("div_index", "div_food");
 	});
 	// id:a_order 进入订单页面
@@ -61,8 +69,11 @@ function function_click_li() {
 					function_json_init();
 					function_Nbutton_click("div_food_restaurants", "div_food");
 					// id:a_select_food 选套餐界面显示
-					function_button_click("a_select_food", "div_food",
-							"div_food_food");
+					if ($.trim($("#input_restaurants").val()) != "") {
+						function_button_click("a_select_food", "div_food",
+								"div_food_food");
+
+					}
 				});
 	} else {
 		// 回显套餐
@@ -122,7 +133,7 @@ function function_a_food_confirm() {
  *            显示列表的UL
  */
 function function_json_init() {
-	if (init_Nfood_flag == 0) {// 只初始化处套餐以外的值
+	if (init_Nfood_flag == 0 && page_init == 0) {// 只初始化处套餐以外的值
 		$("#div_food_people ul").html("");
 		$("#div_food_restaurants ul").html("");
 		// 初始化Users数据
@@ -170,7 +181,10 @@ function function_json_init() {
  */
 function order_init() {
 	$("#no_order").html("");
+	$("#order_list").html("");
 	var flag_number = 0;
+	var flag_money = parseFloat(0);// 订单总价
+	// 初始化未订餐用户
 	for (i = 0; i < userArray.length; i++) {
 		temp_user = userArray[i];
 		if (temp_user != undefined) {
@@ -179,8 +193,26 @@ function order_init() {
 			flag_number = flag_number + 1;
 		}
 	}
+	// 初始化所有订单
+	for (i = 0; i < orderArray.length; i++) {
+		temp_order = orderArray[i];
+		var html = "<li><span>" + temp_order.name + "</span>"
+		if (parseFloat(temp_order.price) > 12) {
+			html = html + "<span id=\"span_money\" class=\"span_money_font\">￥" + temp_order.price
+					+ "</span><br/>";
+		} else {
+			html = html + "<span id=\"span_money\">￥" + temp_order.price
+			+ "</span><br/>";
+		}
+		html = html + "<span>" + temp_order.restaurants + " " + temp_order.food
+				+ "</span>";
+		$("#order_list").append(html);
+		flag_money = flag_money + parseFloat(temp_order.price);
+	}
 	$("#no_order").listview('refresh');
+	$("#order_list").listview('refresh');
 	$(".no_number").html(flag_number);
+	$(".all_money").html(flag_money);
 	$(".order_number").html(userArray.length - flag_number);
 }
 
