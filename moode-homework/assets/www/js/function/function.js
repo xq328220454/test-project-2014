@@ -13,6 +13,15 @@ function function_click_button() {
 		function_json_init();// 初始化值
 		function_Nbutton_click("div_index", "div_food");
 	});
+	// id:a_order 进入订单页面
+	$("#a_order").click(function() {
+		if (userArray.length == 0) {
+			alert("请先订餐");
+			return;
+		}
+		order_init();
+		function_Nbutton_click("div_index", "div_order");
+	});
 	// id:a_food_confirm 方法，提交订单
 	$("#a_food_confirm").click(function() {
 		function_a_food_confirm();
@@ -30,6 +39,7 @@ function function_click_button() {
 	function_button_click("div_food_restaurants_back", "div_food_restaurants",
 			"div_food");
 	function_button_click("div_food_food_back", "div_food_food", "div_food");
+	function_button_click("div_order_back", "div_order", "div_index");
 }
 
 /**
@@ -77,16 +87,24 @@ function function_a_food_confirm() {
 	var user_name = $.trim($("#input_people").val());// 订餐姓名
 	var food_price = $.trim($("#food_price").val());// 价格
 	var restaurants_name = $.trim($("#input_restaurants").val());// 餐馆
+	var food_name = $.trim($("#input_food").val());
+	if (user_name == "" || restaurants_name == "" || food_name == "") {
+		alert("请输入完整的订餐信息");
+		return;
+	}
 	// 封装order对象
-	var ord = new order(user_name, food_price, restaurants_name);
+	var ord = new order(user_name, food_price, restaurants_name, food_name);
 	// 将order放入数组
 	orderArray.push(ord);
 	// 删除users中，已经订餐用户的li
 	$("#" + user_name).remove();
 	// 删除该用户在未定餐用户数组中
-	for (temp_user in userArray) {
-		if (temp_user.name == user_name) {
-			delete temp_user;
+	for (i = 0; i < userArray.length; i++) {
+		temp_user = userArray[i];
+		if (temp_user != undefined) {
+			if (temp_user.name == user_name) {
+				delete userArray[i];
+			}
 		}
 	}
 	// 清除文本框值
@@ -145,6 +163,25 @@ function function_json_init() {
 	}
 	// 绑定回显事件
 	function_click_li();
+}
+
+/**
+ * 初始化订单数据
+ */
+function order_init() {
+	$("#no_order").html("");
+	var flag_number = 0;
+	for (i = 0; i < userArray.length; i++) {
+		temp_user = userArray[i];
+		if (temp_user != undefined) {
+			var html = "<li>" + temp_user.name + "</li>";
+			$("#no_order").append(html);
+			flag_number = flag_number + 1;
+		}
+	}
+	$("#no_order").listview('refresh');
+	$(".no_number").html(flag_number);
+	$(".order_number").html(userArray.length - flag_number);
 }
 
 // ////////////重构方法////////////////

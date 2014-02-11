@@ -24,7 +24,7 @@
 		</div>
 		<div id="div_index_button">
 			<a data-ajax="false" data-role="button" id="a_food">帮订餐</a> <a
-				data-ajax="false" data-role="button">看订单</a>
+				data-ajax="false" data-role="button" id="a_order">看订单</a>
 		</div>
 	</div>
 	<!-- 订餐表单DIV -->
@@ -73,6 +73,33 @@
 	<!-- 隐藏域 -->
 	<div style="display: none;">
 		<input type="hidden" id="food_price">
+	</div>
+	<!-- 订单DIV -->
+	<div id="div_order">
+		<div data-role="header" data-theme="a">
+			<a data-ajax="false" id="div_order_back">Back</a>
+			<h1>订单显示</h1>
+		</div>
+		<div data-role="header" data-theme="b">
+			<span class="order_number"></span>人已定
+		</div>
+		<ul data-role="listview" id="order_list">
+			<li>
+				<span>1111</span>
+				<span>1111</span><br/>
+				<span>2222</span>
+			</li>
+		</ul>
+		<div data-role="header" data-theme="b">
+			<span class="no_number"></span>人没有定
+		</div>
+		<ul data-role="listview" id="no_order">
+		</ul>
+		<div data-role="header" data-theme="a">
+			<h3>
+				<span class="order_number"></span>人已定,<span class="no_number"></span>人没有定,总计N元
+			</h3>
+		</div>
 	</div>
 </body>
 </html>

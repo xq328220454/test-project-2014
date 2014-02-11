@@ -2,10 +2,11 @@
 /**
  * 订单对象
  */
-function order(name, price, restaurants) {
+function order(name, price, restaurants,food) {
 	this.name = name;
 	this.price = price;
 	this.restaurants = restaurants;
+	this.food = food;
 }
 
 /**
