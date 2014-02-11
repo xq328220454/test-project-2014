@@ -34,14 +34,15 @@
 		</div>
 		<div id="div_food_form">
 			<label for="basic">人:</label> <input type="text" name="name"
-				id="input_people" value="" readonly="readonly" /> <a data-ajax="false"
-				data-role="button" id="a_select_people">选人</a> <label for="basic">餐厅:</label>
-			<input type="text" name="name" id="input_restaurants" value=""
-				readonly="readonly" /> <a data-ajax="false" data-role="button"
-				id="a_select_restaurant">选餐厅</a> <label for="basic">选套餐:</label> <input
-				type="text" name="name" id="basic" value="" readonly="readonly" />
-			<a data-ajax="false" data-role="button" id="a_select_food">选套餐</a> <a
-				data-ajax="false" data-role="button" id="a_food_confirm">确认</a>
+				id="input_people" value="" readonly="readonly" /> <a
+				data-ajax="false" data-role="button" id="a_select_people">选人</a> <label
+				for="basic">餐厅:</label> <input type="text" name="name"
+				id="input_restaurants" value="" readonly="readonly" /> <a
+				data-ajax="false" data-role="button" id="a_select_restaurant">选餐厅</a>
+			<label for="basic">选套餐:</label> <input type="text" name="name"
+				id="input_food" value="" readonly="readonly" /> <a data-ajax="false"
+				data-role="button" id="a_select_food">选套餐</a> <a data-ajax="false"
+				data-role="button" id="a_food_confirm">确认</a>
 		</div>
 	</div>
 	<!-- 订餐选人界面 -->
@@ -59,6 +60,18 @@
 			<h1>选餐厅</h1>
 		</div>
 		<ul data-role="listview"></ul>
+	</div>
+	<!-- 选套餐界面 -->
+	<div id="div_food_food">
+		<div data-role="header" data-theme="a">
+			<a data-ajax="false" id="div_food_food_back">Back</a>
+			<h1>选套餐</h1>
+		</div>
+		<ul data-role="listview"></ul>
+	</div>
+	<!-- 隐藏域 -->
+	<div style="display: none;">
+		<input type="hidden" id="food_price">
 	</div>
 </body>
 </html>
