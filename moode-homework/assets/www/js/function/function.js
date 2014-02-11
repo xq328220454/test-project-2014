@@ -1,5 +1,8 @@
 // 方法区
 var init_Nfood_flag = 0;// 0：加载除套餐外的初始化值
+var userArray = [];// 存放用户的数组
+var orderArray = [];// 存放订单的数组
+
 /**
  * 页面跳转
  */
@@ -10,6 +13,10 @@ function function_click_button() {
 		function_json_init();// 初始化值
 		function_Nbutton_click("div_index", "div_food");
 	});
+	// id:a_food_confirm 方法，提交订单
+	$("#a_food_confirm").click(function() {
+		function_a_food_confirm();
+	});
 	// id:a_food_back方法 返回订餐页面
 	function_button_click("a_food_back", "div_food", "div_index");
 	// id:a_select_people方法 选人页面显示
@@ -17,8 +24,6 @@ function function_click_button() {
 	// id:a_select_restaurant方法 选餐厅页面显示
 	function_button_click("a_select_restaurant", "div_food",
 			"div_food_restaurants");
-	// id:a_select_food 选套餐界面显示
-	function_button_click("a_select_food", "div_food", "div_food_food");
 	// id:div_food_people_back 返回订餐表单
 	function_button_click("div_food_people_back", "div_food_people", "div_food");
 	// id:div_food_restaurants_back 返回订餐表单
@@ -38,13 +43,17 @@ function function_click_li() {
 			function_Nbutton_click("div_food_people", "div_food");
 		});
 		// 设置餐馆
-		$("#div_food_restaurants ul li").click(function() {
-			$("#input_restaurants").val($(this).text());
-			// 加载该餐馆的套餐
-			init_Nfood_flag = 1;
-			function_json_init();
-			function_Nbutton_click("div_food_restaurants", "div_food");
-		});
+		$("#div_food_restaurants ul li").click(
+				function() {
+					$("#input_restaurants").val($(this).text());
+					// 加载该餐馆的套餐
+					init_Nfood_flag = 1;
+					function_json_init();
+					function_Nbutton_click("div_food_restaurants", "div_food");
+					// id:a_select_food 选套餐界面显示
+					function_button_click("a_select_food", "div_food",
+							"div_food_food");
+				});
 	} else {
 		// 回显套餐
 		$("#div_food_food ul li").click(function() {
@@ -56,6 +65,28 @@ function function_click_li() {
 			function_Nbutton_click("div_food_food", "div_food");
 		});
 	}
+}
+
+/**
+ * 点击订餐按钮
+ */
+function function_a_food_confirm() {
+	/**
+	 * 创建订单并加入到订单数组中 将该用户从默认用户列表中删除,同时删除所在的li 清空数据，保留餐馆名称
+	 */
+	var user_name = $.trim($("#input_people").val());// 订餐姓名
+	var food_price = $.trim($("#food_price").val());// 价格
+	var restaurants_name = $.trim($("#input_restaurants").val());// 餐馆
+	// 封装order对象
+	var ord = new order(user_name, food_price, restaurants_name);
+	// 将order放入数组
+	orderArray.push(ord);
+	// 删除users中，已经订餐用户的li
+	$("#" + user_name).remove();
+	// 清除文本框值
+	$("#input_people").val("");
+	$("#food_price").val("");
+	$("#input_food").val("");
 }
 
 // ////////////////////////////数值处理方法//////////////////////////
@@ -73,8 +104,12 @@ function function_json_init() {
 		// 初始化Users数据
 		$.each(users, function(index, info) {
 			// alert(info.name);
-			var html = "<li><a data-ajax=\"false\">" + info.name + "</a></li>"
+			var html = "<li id=\"" + info.name + "\"><a data-ajax=\"false\">"
+					+ info.name + "</a></li>"
 			$("#div_food_people ul").append(html);
+			// 创建所有用户列表数组
+			var u = new user(info.name);
+			userArray.push(u);
 		});
 		// 初始化restaurants数据
 		$.each(restaurants, function(index, info) {
